@@ -25,141 +25,21 @@
 			</ul>
 		</header>
 		<main>	
-			{{#if authorised}}
-				<section class="main-left">
-					<nav class="side-nav">
-						<ol class="side-nav-bunch">
-							{{#if role.admin}}
-								<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
-								<li><a href="/admin-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-								<li><a href="/admin-couriers"><span id="side-nav-icon" class="material-symbols-outlined">local_shipping</span><span>Couriers</span></a></li>
-								{{!-- <li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li> --}}
-							{{/if}}
-							
-							{{#if role.courier}}
-								<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
-								<li><a href="/courier-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
-								<li><a href="/courier-transit"><span id="side-nav-icon" class="material-symbols-outlined">check_box</span><span>Transit</span></a></li>
-								<li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li>
-								<li><a href="/courier-delivered"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>Delivered</span></a></li>
-								
-							{{/if}}
-							
-							{{#if role.customer}}
-								<li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
-								<li><a href="/customer-send"><span id="side-nav-icon" class="material-symbols-outlined">add_box</span><span>Send</span></a></li>
-								<li><a href="/customer-current"><span id="side-nav-icon" class="material-symbols-outlined">schedule</span><span>Current</span></a></li>
-								<li><a href="/customer-history"><span id="side-nav-icon" class="material-symbols-outlined">inbox</span><span>History</span></a></li>
-								{{!-- <li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li> --}}
-							{{/if}}
-						</ol>
-					</nav>
+			<section class="explicative-hero">	
+				<section class="explicative-hero-text">
+					{{#if authorised}}
+					<h2>Hi {{authorised}}!</h2>
+					{{/if}}
+					<h1>Welcome to Parcelino<span id="dot">.</span></p></h1>
+					<h2>Parcel sending reimagined...</h2>
+					<h2>easy, fast, reliable!</h2>
+					<h3>Click explore to discover a <span id="better-word">better</span> way of sending, managing and delivering a parcel 											
+						<span id="home-sparkels" class="material-symbols-outlined">temp_preferences_custom</span>
+					</h3>
+					<a class="btn explore" href="/login">Explore</a>
+					<img class="hero-background" src="img/hero-background.png" alt="hero-background">
 				</section>
-				<section class="main-right aligned"> 	
-					<section class="info-space">
-						{{#if role.admin}}
-						<section class="info-bundle2">
-							<div class="pie-chart">
-								<canvas id="myChartAdmin"></canvas>
-							</div>
-							<div class="delivered-info">
-								<p>Not-dispatched parcels:</p>
-								<div class="numbers-and-icon">
-									<p class="admin-total-instore" id="admin-total-instore">{{adminParcelsCouriers.totalInstore}}</p>
-									<span id="side-nav-icon-bolt" class="material-symbols-outlined">bolt</span>
-								</div>
-								<p>In-transit parcels:</p>
-								<div class="numbers-and-icon">
-									<p class="admin-total-in-transit" id="admin-total-in-transit">{{adminParcelsCouriers.totalAccepted}}</p>
-									<span id="side-nav-icon-sparkel" class="material-symbols-outlined">temp_preferences_custom</span>
-								</div>
-								<p>Couriers:</p>
-								<div class="numbers-and-icon">
-									<p class="admin-total-couriers">{{adminParcelsCouriers.totalCouriers}}</p>
-									{{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
-									<span id="side-nav-icon-handshake" class="material-symbols-outlined">local_shipping</span>
-								</div>
-								<p>Customers:</p>
-								<div class="numbers-and-icon">
-									<p class="admin-total-customers">{{adminParcelsCouriers.totalCustomers}}</p>
-									{{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
-									<span id="side-nav-icon-handshake" class="material-symbols-outlined">group</span>
-								</div>
-								<p>Succesfully delivered parcels:</p>
-								<div class="numbers-and-icon">
-									<p class="admin-total-delivered">{{adminParcelsCouriers.totalDelivered}}</p>
-									{{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
-									<span id="side-nav-icon-handshake" class="material-symbols-outlined">verified</span>
-								</div>
-							</div>
-						</section>
-						{{/if}}
-						{{#if role.courier}}
-						<section class="info-bundle2 courier">
-							<div class="pie-chart">
-								<canvas id="myChartCourier"></canvas>
-							</div>
-							<div class="delivered-info">
-								<p>Parcels ready for delivery:</p>
-								<div class="numbers-and-icon">
-									<p class="courier-delivered-numbers">{{courierParcels.instore}}</p>
-									<span id="side-nav-icon-bolt" class="material-symbols-outlined">bolt</span>
-								</div>
-								<p>Accepted parcels:</p>
-								<div class="numbers-and-icon">
-									<p class="courier-delivered-numbers">{{courierParcels.accepted}}</p>
-									<span id="side-nav-icon-sparkel" class="material-symbols-outlined">temp_preferences_custom</span>
-								</div>
-								<p>Wow! So far you've delivered:</p>
-								<div class="numbers-and-icon">
-									<p class="courier-delivered-numbers">{{courierParcels.delivered}}</p>
-									{{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
-									<span id="side-nav-icon-handshake" class="material-symbols-outlined">handshake</span>
-								</div>
-							</div>
-						</section>
-						<section class="parcels" style="display:none">
-								<div id="instore">{{courierParcels.instore}}</div>
-								<div id="accepted">{{courierParcels.accepted}}</div>
-								<div id="delivered">{{courierParcels.delivered}}</div>	
-						</section>
-						{{/if}}
-						{{#if role.customer}}
-							<section class="info-bundle2 customer">	
-								<p>Not-dispatched parcels</p>
-								<div class="numbers-and-icon">
-									<p class="courier-delivered-numbers">{{customerParcels.totalNotDispatched}}</p>
-									<span id="side-nav-icon-sparkel" class="material-symbols-outlined">rocket_launch</span>
-								</div>
-								<p>Current in transit parcels:</p>
-								<div class="numbers-and-icon">
-									<p class="courier-delivered-numbers">{{customerParcels.totalTransit}}</p>
-									<span id="side-nav-icon-sparkel" class="material-symbols-outlined">temp_preferences_custom</span>
-								</div>
-								<p>Succesfully delivered parcles:</p>
-								<div class="numbers-and-icon">
-									<p class="courier-delivered-numbers">{{customerParcels.totalDelivered}}</p>
-									{{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
-									<span id="side-nav-icon-handshake" class="material-symbols-outlined">handshake</span>
-								</div>
-							</section>
-						{{/if}}
-					</section>
-				</section>
-			{{else}}
-				<section class="explicative-hero">	
-					<section class="explicative-hero-text">
-						<h1>Welcome to Parcelino<span id="dot">.</span></p></h1>
-						<h2>Parcel sending reimagined...</h2>
-						<h2>easy, fast, reliable!</h2>
-						<h3>Click explore to discover a <span id="better-word">better</span> way of sending, managing and delivering a parcel 											
-							<span id="home-sparkels" class="material-symbols-outlined">temp_preferences_custom</span>
-						</h3>
-						<a class="btn explore" href="/login">Explore</a>
-						<img class="hero-background" src="img/hero-background.png" alt="hero-background">
-					</section>
-				</section>
-			{{/if}}
+			</section>
 		</main>
 	</body>	
 </html>

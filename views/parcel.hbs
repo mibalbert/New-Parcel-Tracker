@@ -164,11 +164,11 @@
 				bounds.extend(pos1);
 				bounds.extend(pos2);
 				map.fitBounds(bounds);
-				{{!-- map.setTilt(45) --}}
+				map.setTilt(45)
 				//Tilt effect on the map
-				setTimeout(() =>{
+				{{!-- setTimeout(() =>{
 					map.setTilt(45)
-				}, 1500)
+				}, 1500) --}}
 				//Creates the polyline
 				const path = new google.maps.Polyline({
 					path: [ pos1, pos2],

@@ -1,0 +1,76 @@
+
+	
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Home Page</title>
+		<meta name="description" content="form to add new books">
+		<meta name="author" content="Alberto Paros">
+		<meta name="viewport" content= "width=device-width, initial-scale=1.0">
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="home.js" defer></script>
+	</head>
+	<body>
+		<header>
+			<h1><a href="/">Parcelino<span id="dot">.</span></a></h1>
+			<ul>
+				<li class="logout"><a href="/logout"><span class="material-symbols-outlined">logout</span><span>Log-out</span></a></li>
+			</ul>
+		</header>
+		<main>	
+            <section class="main-left">
+                <nav class="side-nav">
+                    <ol class="side-nav-bunch">
+                        <li><a href="/"><span id="side-nav-icon" class="material-symbols-outlined">home</span><span id="side-nav-text">Home</span></a></li>
+                        <li><a href="/admin-parcels"><span id="side-nav-icon" class="material-symbols-outlined">list</span><span>Parcels</span></a></li>
+                        <li><a href="/admin-couriers"><span id="side-nav-icon" class="material-symbols-outlined">local_shipping</span><span>Couriers</span></a></li>
+                        {{!-- <li><a href="/courier-route"><span id="side-nav-icon" class="material-symbols-outlined">map</span><span>Route</span></a></li> --}}
+                    </ol>
+                </nav>
+            </section>
+            <section class="main-right aligned"> 	
+                <section class="info-space">
+                    <section class="info-bundle2">
+                        <div class="pie-chart">
+                            <canvas id="myChartAdmin"></canvas>
+                        </div>
+                        <div class="delivered-info">
+                            <p>Not-dispatched parcels:</p>
+                            <div class="numbers-and-icon">
+                                <p class="admin-total-instore" id="admin-total-instore">{{adminParcelsCouriers.totalInstore}}</p>
+                                <span id="side-nav-icon-bolt" class="material-symbols-outlined">bolt</span>
+                            </div>
+                            <p>In-transit parcels:</p>
+                            <div class="numbers-and-icon">
+                                <p class="admin-total-in-transit" id="admin-total-in-transit">{{adminParcelsCouriers.totalAccepted}}</p>
+                                <span id="side-nav-icon-sparkel" class="material-symbols-outlined">temp_preferences_custom</span>
+                            </div>
+                            <p>Couriers:</p>
+                            <div class="numbers-and-icon">
+                                <p class="admin-total-couriers">{{adminParcelsCouriers.totalCouriers}}</p>
+                                {{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
+                                <span id="side-nav-icon-handshake" class="material-symbols-outlined">local_shipping</span>
+                            </div>
+                            <p>Customers:</p>
+                            <div class="numbers-and-icon">
+                                <p class="admin-total-customers">{{adminParcelsCouriers.totalCustomers}}</p>
+                                {{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
+                                <span id="side-nav-icon-handshake" class="material-symbols-outlined">group</span>
+                            </div>
+                            <p>Succesfully delivered parcels:</p>
+                            <div class="numbers-and-icon">
+                                <p class="admin-total-delivered">{{adminParcelsCouriers.totalDelivered}}</p>
+                                {{!-- <img class="home-parcel-icon" src="img/package.png" alt="parcel-icon-alt"> --}}
+                                <span id="side-nav-icon-handshake" class="material-symbols-outlined">verified</span>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+		</main>
+	</body>	
+</html>

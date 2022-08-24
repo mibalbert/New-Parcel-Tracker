@@ -5,7 +5,7 @@
 import { Router } from './deps.js';
 import { Handlebars } from './deps.js';
 import { login, register } from './modules/accounts.js';
-import { addParcel } from './modules/send.js';
+import { addParcel, setMilionParcels, getMilionParcels } from './modules/send.js';
 import {
 	getAdminParcelsCouriers,
 	getAllCouriers,
@@ -62,6 +62,21 @@ router.get('/', async (context) => {
 	context.response.body = body;
 });
 
+router.get('/ass', async (context) => {
+	
+	// setMilionParcels()
+	// for (let i=0; i<10000; i++){
+	// 	const data = setMilionParcels()
+	// 	console.log(data)	
+	// }
+	const data = await getMilionParcels()
+
+	const body = await handle.renderView('admin-home', {data} );
+	context.response.body = body;
+
+});
+
+
 router.get('/customer-home', async (context) => {
 	const authorised = await context.cookies.get('authorised');
 	const permission = await context.cookies.get('permission');
@@ -99,7 +114,8 @@ router.get('/admin-home', async (context) => {
 ///////LOGIN & REGISTER routes
 
 router.get('/login', async (context) => {
-	const body = await handle.renderView('login');
+	const authorised = context.cookies.get('authorised')
+	const body = await handle.renderView('login', { authorised });
 	context.response.body = body;
 });
 
@@ -132,9 +148,12 @@ router.post('/login', async (context) => {
 	console.log(obj);
 	try {
 		const data = await login(obj);
-		await context.cookies.set('authorised', data.username);
-		await context.cookies.set('permission', data.role);
-		context.response.redirect('/');
+		context.cookies.set('authorised', data.username);
+		context.cookies.set('permission', data.role);
+		const permission = data.role;
+		if (permission === 'customer') context.response.redirect('/customer-home');
+		else if (permission === 'courier') context.response.redirect('/courier-home');
+		else if (permission === 'admin') context.response.redirect('/admin-home');
 	} catch (err) {
 		console.log(err);
 		context.response.redirect('/login');
@@ -164,8 +183,9 @@ router.get('/admin-couriers', async (context) => {
 	const role = permission !== 'admin';
 	if (authorised === undefined || role) context.response.redirect('/login');
 	const couriers = await getAllCouriers();
-	// console.log(parcels)
+	console.log(couriers)
 	const data = { authorised, couriers };
+
 	const body = await handle.renderView('admin-couriers', data);
 	context.response.body = body;
 });
